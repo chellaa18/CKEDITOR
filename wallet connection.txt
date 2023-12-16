@@ -138,3 +138,110 @@ export default PrivateRoute;
             </PrivateRoute>
           }
         />
+
+////Show password
+
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCnfrmPassword, setShowCnfrmPassword] = useState(false);
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+    const toggleCnfrmPasswordVisibility = () => {
+      setShowCnfrmPassword(!showCnfrmPassword);
+    };
+
+     <div className="col-lg-6">
+                          <div className="form-group">
+                            <label className="FrmLbl">Password</label>
+                            <div className="input-group">
+                              <input
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                {...register("password")}
+                                className={`form-control ${
+                                  errors.password ? "is-invalid" : ""
+                                }`}
+                                placeholder="Enter your Password"
+                              />
+                              <button
+                                type="button"
+                                className="input-group-text bg-secondary"
+                                onClick={togglePasswordVisibility}
+                                style={{
+                                  border: "none",
+                                  borderRadius: "none",
+                                  backgroundColor: "#A9A9A9",
+                                }}
+                              >
+                                {showPassword ? (
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    style={{ color: "black" }}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    icon={faEyeSlash}
+                                    style={{ color: "black" }}
+                                  />
+                                )}
+                              </button>
+                            </div>
+                            {errors.password && (
+                              <div className="invalid-feedback">
+                                {errors.password.message}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="form-group">
+                            <label className="FrmLbl">Confirm Password</label>
+                            <div className="input-group">
+                              <input
+                                name="confirmPassword"
+                                type={showCnfrmPassword ? "text" : "password"}
+                      
+                                {...register("confirmPassword")}
+                                className={`form-control ${
+                                  errors.confirmPassword ? "is-invalid" : ""
+                                }`}
+                                placeholder="Enter your Confirm Password"
+                              />
+                              <button
+                                type="button"
+                                className="input-group-text bg-secondary"
+                                onClick={toggleCnfrmPasswordVisibility}
+                                style={{
+                                  border: "none",
+                                  borderRadius: "none",
+                                  backgroundColor: "#A9A9A9",
+                                }}
+                              >
+                                {showCnfrmPassword ? (
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    style={{ color: "black" }}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    icon={faEyeSlash}
+                                    style={{ color: "black" }}
+                                  />
+                                )}
+                              </button>
+                            </div>
+                            {errors.confirmPassword && (
+                              <div className="invalid-feedback">
+                                {errors.confirmPassword.message}
+                              </div>
+                            )}
+                          </div>
+                        </div>
