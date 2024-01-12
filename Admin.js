@@ -1,116 +1,92 @@
+
+
+
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Contents from "./contents/Contents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTachometerAlt,
-  faClipboard,
-  faBox,
-  faAddressBook,
-  faTableList,
-} from "@fortawesome/free-solid-svg-icons";
-// import ContentTable from "./contentsTable/ContentTable";
 import MainNavbar from "../mainNav/MainNavbar";
-import UserDetail from "../userDetail/UserDetail";
 import Dashboard from "../dashboard/Dashboard";
-
+import "./Admin.css"
 const Admin = () => {
   const [activeContent, setActiveContent] = useState(
     localStorage.getItem("activeContent") || "dashboard"
   );
 
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   useEffect(() => {
     localStorage.setItem("activeContent", activeContent);
   }, [activeContent]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setSidebarOpen(false);
+      } else {
+        setSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
 
   const handleNavClick = (content) => {
     setActiveContent(content);
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <div className="container-fluid ">
-   
+    <div className={`container-fluid ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <div className="row px-0">
-        <div className="col-lg-12 d-flex" style={{paddingLeft:'0px', paddingRight:'0px'}}>
+        <div className="col-lg-12 d-flex" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
           <nav
             id="sidebar"
-            className="col-lg-3 d-md-block bg-dark sidebar"
+            className={`col-lg-3 d-md-block bg-dark sidebar ${sidebarOpen ? 'open' : 'closed'}`}
             style={{
               backgroundColor: "#51713a",
-              backgroundImage:
-                "linear-gradient(314deg, #51713a 0%, #000e21 74%)",
+              backgroundImage: "linear-gradient(314deg, #51713a 0%, #000e21 74%)",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
-             
               width: "250px",
             }}
           >
-            <h4
-              className=" text-white text-center mt-4"
-              style={{ fontWeight: "900px", fontSize: "40px" }}
-            >
+            <h4 className=" text-white text-center mt-4" style={{ fontWeight: "900px", fontSize: "40px" }}>
               KoinPark
             </h4>
             <div className="position-sticky mt-5">
-            
               <ul className="nav flex-column p-3">
-                <li
-                  className={`nav-item ${
-                    activeContent === "dashboard" ? "active" : ""
-                  }`}
-                >
+                <li className={`nav-item ${activeContent === "dashboard" ? "active" : ""}`}>
                   <a
-                    className={`nav-link text-white px-2 ${
-                      activeContent === "dashboard" ? "active" : ""
-                    }`}
+                    className={`nav-link text-white px-2 ${activeContent === "dashboard" ? "active" : ""}`}
                     href="#"
                     onClick={() => handleNavClick("dashboard")}
                   >
-                    <FontAwesomeIcon icon={faTachometerAlt} className="me-2" />
                     Dashboard
                   </a>
                 </li>
-                <li
-                  className={`nav-item ${
-                    activeContent === "User Detail" ? "active" : ""
-                  }`}
-                >
+                <li className={`nav-item ${activeContent === "User Detail" ? "active" : ""}`}>
                   <a
-                    className={`nav-link text-white px-2 ${
-                      activeContent === "User Detail" ? "active" : ""
-                    }`}
+                    className={`nav-link text-white px-2 ${activeContent === "User Detail" ? "active" : ""}`}
                     href="#"
                     onClick={() => handleNavClick("User Detail")}
                   >
-                    <FontAwesomeIcon icon={faClipboard} className="me-2" />
                     User Detail
                   </a>
                 </li>
-                {/* <li
-                className={`nav-item ${
-                  activeContent === "products" ? "active" : ""
-                }`}
-              >
-                     <a
-                  className={`nav-link text-white px-2 ${
-                    activeContent === "products" ? "active" : ""
-                  }`}
-                  href="#"
-                  onClick={() => handleNavClick("products")}
-                > */}
-                {/* <FontAwesomeIcon icon={faBox} className="me-2" /> */}
-                {/* Products
-                </a>
-              </li> */}
               </ul>
             </div>
           </nav>
 
           <main className="w-100">
-            <MainNavbar activeContent={activeContent} />
+            <MainNavbar activeContent={activeContent} onToggleSidebar={toggleSidebar}  isSidebarOpen={sidebarOpen}/>
             {activeContent === "dashboard" && <Dashboard />}
-            {activeContent === "User Detail" && <UserDetail />}
-            {/* {activeContent === "products" && <h2>Products</h2>} */}
           </main>
         </div>
       </div>
@@ -119,3 +95,26 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+//Admin.css
+
+
+.sidebar-closed {
+    margin-left: 0;
+}
+
+.sidebar {
+    width: 250px; 
+    transition: margin-left 0.5s; 
+}
+
+.sidebar.closed {
+    margin-left: -250px; 
+    overflow: hidden;
+}
+
+.active {
+    background-color: rgba(77, 72, 72, 0.3);
+    border-radius: 8px; 
+  }
