@@ -106,3 +106,35 @@ const Login = () => {
 };
 
 export default Login;
+
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Login = () => {
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="border rounded p-4">
+        <div className="d-flex justify-content-center align-items-center">
+          <form className="d-flex flex-column align-items-center">
+            <h2 className="mb-4">Login</h2>
+            <div className="mb-3">
+              <label htmlFor="username" className="form-label">Username</label>
+              <input type="text" className="form-control" id="username" placeholder="Enter your username" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input type="password" className="form-control" id="password" placeholder="Enter your password" />
+            </div>
+            <button type="submit" className="btn btn-primary">Login</button>
+          </form>
+
+          <img src="your-image-url.jpg" alt="Login Image" className="ml-4" style={{ maxWidth: '100%', height: 'auto' }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
+
