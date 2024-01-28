@@ -1,0 +1,19 @@
+
+.sidebar-closed {
+    margin-left: 0;
+}
+
+.sidebar {
+    width: 250px; 
+    transition: margin-left 0.5s; 
+}
+
+.sidebar.closed {
+    margin-left: -250px; 
+    overflow: hidden;
+}
+
+.active {
+    background-color: rgba(77, 72, 72, 0.3);
+    border-radius: 8px; 
+  }
