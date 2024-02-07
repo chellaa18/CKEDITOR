@@ -1,0 +1,34 @@
+import React, { useState } from 'react';
+
+function App() {
+  const [upload, setUpload] = useState([]);
+
+  // Function to handle file input change event
+  const handleFileSelect = (event) => {
+    const files = event.target.files;
+    const newUpload = [...upload];
+    // Using forEach to iterate over the files
+    files.forEach(file => {
+      newUpload.push(file); // Push file object into newUpload array
+    });
+    setUpload(newUpload); // Update the upload state
+  }
+
+  // Function to handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(upload); // Log the upload array
+    // Here you can do further processing with the upload array, such as sending it to a server.
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="file" onChange={handleFileSelect} multiple accept="image/*" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
