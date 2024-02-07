@@ -32,3 +32,33 @@ function App() {
 }
 
 export default App;
+import React, { useState } from 'react';
+
+function ImageUploader() {
+  const [imagesArray, setImagesArray] = useState([]);
+
+  const handleImageUpload = (event) => {
+    const files = event.target.files;
+    const newImagesArray = [...imagesArray]; // Create a copy of the current array
+    
+    // Loop through all selected files and push them into the newImagesArray
+    for (let i = 0; i < files.length; i++) {
+      newImagesArray.push(files[i]);
+    }
+
+    setImagesArray(newImagesArray); // Update the state with the new array
+  };
+
+  console.log(imagesArray); // Logging imagesArray outside handleImageUpload
+
+  return (
+    <div>
+      <input type="file" onChange={handleImageUpload} accept="image/*" multiple />
+      <input type="file" onChange={handleImageUpload} accept="image/*" multiple />
+      <input type="file" onChange={handleImageUpload} accept="image/*" multiple />
+      <button onClick={() => console.log(imagesArray)}>Upload Images</button>
+    </div>
+  );
+}
+
+export default ImageUploader;
